@@ -1,4 +1,4 @@
-# CampusLearn — Computer Science Fundamentals Portal
+# Wisdom-Pro — Computer Science Fundamentals Portal
 
 A modern, high-fidelity replication of the provided reference design, elevated with the design aesthetics of **[DesignPrompts.dev](https://www.designprompts.dev/)** and smooth motion dynamics of **[Cominvi.com.mx](https://www.cominvi.com.mx/)**.
 
