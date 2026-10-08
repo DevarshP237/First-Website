@@ -1,0 +1,661 @@
+/* ==========================================================================
+   CampusLearn — Cominvi (cominvi.com.mx) Editorial & Architectural UI Template
+   Motion, Grid & Typographic System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --primary-glow: rgba(37, 99, 235, 0.25);
+  
+  --accent-gold: #f59e0b;
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+  
+  --bg-body: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f1f5f9;
+  --border-color: rgba(226, 232, 240, 0.9);
+  --border-strong: rgba(203, 213, 225, 0.9);
+  --text-main: #0a0f1d;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+  
+  --card-shadow: 0 4px 20px -2px rgba(10, 15, 29, 0.04), 0 2px 6px -1px rgba(10, 15, 29, 0.02);
+  --card-shadow-hover: 0 20px 30px -10px rgba(10, 15, 29, 0.08), 0 8px 12px -6px rgba(10, 15, 29, 0.04);
+}
+
+.dark {
+  --bg-body: #060911;
+  --bg-surface: #0c1220;
+  --bg-surface-elevated: #131c31;
+  --border-color: rgba(30, 41, 59, 0.7);
+  --border-strong: rgba(51, 65, 85, 0.8);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  
+  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  --card-shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.6), 0 0 25px rgba(37, 99, 235, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Cursor (Cominvi style) */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(37, 99, 235, 0.6);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, transform 0.08s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+}
+#custom-cursor.hovered {
+  width: 56px;
+  height: 56px;
+  background-color: rgba(37, 99, 235, 0.12);
+  border-color: var(--primary);
+}
+@media (pointer: coarse) {
+  #custom-cursor, #custom-cursor-dot {
+    display: none !important;
+  }
+}
+
+/* Top Scroll Progress (Cominvi style) */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #2563eb, #38bdf8, #6366f1);
+  z-index: 1000;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+  transition: width 0.05s linear;
+}
+
+/* Cominvi Architectural Eyebrow Tags */
+.eyebrow-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.eyebrow-tag::before {
+  content: '[';
+  opacity: 0.6;
+}
+.eyebrow-tag::after {
+  content: ']';
+  opacity: 0.6;
+}
+
+/* Cominvi Section Divider Lines */
+.arch-grid-line {
+  position: relative;
+}
+.arch-grid-line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border-color);
+}
+
+/* Glassmorphism Classes */
+.glass-header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+.dark .glass-header {
+  background: rgba(12, 18, 32, 0.85);
+  border-bottom-color: var(--border-color);
+}
+.glass-header.scrolled {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+.cominvi-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  border-radius: 1.25rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.cominvi-card:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-3px);
+}
+
+/* Cominvi Hero Cinematic Background & Video Simulation */
+.cominvi-hero-container {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25);
+  background-color: #0c1220;
+}
+.cominvi-hero-bg {
+  transform: scale(1.03);
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.cominvi-hero-container:hover .cominvi-hero-bg {
+  transform: scale(1.08);
+}
+
+/* Cominvi Pillars / Services Showcase */
+.cominvi-pillar-item {
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.cominvi-pillar-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: transparent;
+  transition: background 0.35s ease;
+}
+.cominvi-pillar-item:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary);
+  box-shadow: 0 16px 32px -8px rgba(37, 99, 235, 0.18);
+}
+.cominvi-pillar-item:hover::before {
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
+}
+.cominvi-pillar-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.35);
+  transition: transform 0.35s ease;
+}
+.cominvi-pillar-item:hover .cominvi-pillar-icon {
+  transform: scale(1.1) rotate(4deg);
+}
+
+/* Cominvi Status Badges */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+  transition: all 0.25s ease;
+}
+.badge-completed {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.dark .badge-completed {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+.badge-inprogress {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.dark .badge-inprogress {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+.badge-notstarted {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+.dark .badge-notstarted {
+  background: rgba(100, 116, 139, 0.15);
+  color: #94a3b8;
+  border-color: rgba(100, 116, 139, 0.4);
+}
+
+/* Gallery Architectural Cards */
+.cominvi-gallery-card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.cominvi-gallery-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.15);
+}
+.cominvi-gallery-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cominvi-gallery-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Staggered Scroll-Driven Reveals (Cominvi Signature) */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Modals */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 9, 17, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 1rem;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
+  border-radius: 1.5rem;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.45);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-backdrop.open .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Toasts */
+#toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateX(120%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast.show {
+  transform: translateX(0);
+}
+
+/* Reference Comparison Floating Button */
+.ref-floating-btn {
+  position: fixed;
+  bottom: 1.75rem;
+  left: 1.75rem;
+  z-index: 1000;
+  background: #0c1220;
+  color: white;
+  padding: 0.625rem 1.125rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.ref-floating-btn:hover {
+  transform: scale(1.06);
+  background: #151f38;
+  border-color: var(--primary);
+}
+
+/* Pulsing Dots */
+@keyframes softPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(1.25); }
+}
+.pulse-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: softPulse 2s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   Cominvi Infinite Marquee Ticker
+   ========================================================================== */
+.cominvi-marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background: var(--bg-surface-elevated);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.85rem 0;
+  display: flex;
+}
+.cominvi-marquee-container::before,
+.cominvi-marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.cominvi-marquee-container::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-body), transparent);
+}
+.cominvi-marquee-container::after {
+  right: 0;
+  background: linear-gradient(-90deg, var(--bg-body), transparent);
+}
+.cominvi-marquee-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+  white-space: nowrap;
+}
+.cominvi-marquee-container:hover .cominvi-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.marquee-item .marquee-accent {
+  color: var(--primary);
+}
+
+/* ==========================================================================
+   3D Computer Workstation Stage & Controls
+   ========================================================================== */
+.stage-3d-wrapper {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  border-radius: 1.25rem;
+  background: radial-gradient(circle at 50% 40%, rgba(37, 99, 235, 0.12) 0%, rgba(10, 15, 29, 0.95) 85%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: inset 0 0 60px rgba(37, 99, 235, 0.1), 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.stage-3d-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+#computer3d-stage {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+#computer3d-stage:active {
+  cursor: grabbing;
+}
+
+/* 3D Stage Floating Control Dock */
+.stage-control-dock {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(12, 18, 32, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.6rem;
+  border-radius: 9999px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  max-width: 95%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stage-dock-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+.stage-dock-btn:hover {
+  background: rgba(37, 99, 235, 0.35);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.stage-dock-btn:active {
+  transform: translateY(0);
+}
+.stage-badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+/* Corner Reticles for Architectural Blueprint Feel */
+.corner-bracket {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: rgba(56, 189, 248, 0.5);
+  pointer-events: none;
+  z-index: 10;
+}
+.corner-bracket.top-left {
+  top: 10px;
+  left: 10px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.corner-bracket.top-right {
+  top: 10px;
+  right: 10px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+.corner-bracket.bottom-left {
+  bottom: 10px;
+  left: 10px;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+.corner-bracket.bottom-right {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* Holographic Glow Border */
+.holo-glow-card {
+  position: relative;
+}
+.holo-glow-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+.holo-glow-card:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
